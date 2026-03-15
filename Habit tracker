@@ -1,0 +1,45 @@
+import requests
+import os
+from  datetime import datetime
+USERNAME=os.environ["USERNAME"]                                                                 
+TOKEN=os.environ["TOKEN_NUM"]
+GRAPH_ID="your graph name"
+pixela_endpoint="https://pixe.la/v1/users"
+user_params={
+    "token":TOKEN,
+    "username":USERNAME,
+    "agreeTermsOfService":"yes",
+     "notMinor":"yes",
+}
+
+graph_endpoint=f"{pixela_endpoint}/{USERNAME}/graphs"
+graph_params={
+    "id":GRAPH_ID,
+    "name":"CodingGraph",
+    "unit":"hours",
+    "type":"int",
+    "color":"ichou"
+}
+headers = {
+    "X-USER-TOKEN":TOKEN,
+}
+today=datetime(year=2026,month=2,day=10)
+value_params={
+         "date":today.strftime("%Y%m%d"),
+         "quantity":"6",
+}
+pixel_create_endpoint=f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}"
+#response = requests.post(url=pixel_create_endpoint,json=value_params,headers=headers)
+#update method using put
+pixel_updated={
+    "name":GRAPH_ID,
+    "unit":"4",
+    "color":"momiji",
+    "description":"CodingGraph",
+
+}
+pixel_update=f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{today.strftime("%Y%m%d")}"
+response=requests.put(url=pixel_update,json=pixel_updated,headers=headers)
+#delete method using requests
+pixel_delete=f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPH_ID}/{today.strftime("%Y%m%d")}"
+response_delete=requests.delete(url=pixel_delete,headers=headers)
