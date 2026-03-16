@@ -1,0 +1,26 @@
+alphabets=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+start=input("can we start? y/n: ")
+while start == 'y':
+    text=input("Enter your text: ")
+    shift=int(input('Enter amount of shift you want: '))
+    direction=input("choose the direction you want: ")
+    def salaar(original_text , shift_amount,encrpyt_or_decrypt):
+            output_text=""
+            for char in original_text:
+
+                    if direction=='encrypt':
+                        shifted_amount=alphabets.index(char)+shift_amount
+                        shifted_amount%=len(alphabets)
+                        output_text+=alphabets[shifted_amount]
+                    elif direction=='decrypt':
+                        shifted_amount = alphabets.index(char) - shift_amount
+                        shifted_amount %= len(alphabets)
+                        output_text += alphabets[shifted_amount]
+
+                    else:
+                        print("choose any option")
+
+            print(f"here is ur output {output_text} ")
+    salaar(original_text=text,shift_amount=shift,encrpyt_or_decrypt=direction)
+if start == 'n':
+    print("bye")
